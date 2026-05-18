@@ -43,27 +43,19 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 			'component' => 'form',
 			'props' => [
 				'form_id' => 'fphase1_login',
+				'form_instance_id' => 'phase1_login',
+				'form_descriptor_id' => FormList::USERLOGIN,
 				'form_name' => FormList::USERLOGIN,
 				'mode' => AbstractForm::_MODE_CREATE,
-				'action' => '',
+				'action' => '/?context=form&event=submit',
 				'method' => 'post',
 				'autocomplete' => true,
 				'focusable' => true,
 				'post_javascript_file' => '',
 				'button_save_class' => FormButton::CLASS_STANDARD,
 				'button_cancel_class' => null,
-				'field_refs' => [
-					'username' => [
-						'id' => 'fphase1_login_input_1',
-						'name' => 'fphase1_login_input_1',
-						'row_id' => 'row_fphase1_login_input_1',
-					],
-					'password' => [
-						'id' => 'fphase1_login_input_2',
-						'name' => 'fphase1_login_input_2',
-						'row_id' => 'row_fphase1_login_input_2',
-					],
-				],
+				'field_refs' => $this->expectedFieldRefs('phase1_login', ['username', 'password']),
+				'submit_context' => $this->expectedSubmitContext(FormList::USERLOGIN, 'phase1_login'),
 			],
 			'hidden_fields' => [],
 			'rows' => [
@@ -75,7 +67,9 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 							'component' => 'form.input.text',
 							'fieldname' => 'username',
 							'input_type' => 'text',
-							'name' => 'fphase1_login_input_1',
+							'field_key' => 'username',
+							'data_field_key' => 'username',
+							'name' => 'username',
 							'save' => true,
 							'required' => null,
 							'validators' => [],
@@ -90,7 +84,9 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 							'component' => 'form.input.password',
 							'fieldname' => 'password',
 							'input_type' => 'password',
-							'name' => 'fphase1_login_input_2',
+							'field_key' => 'password',
+							'data_field_key' => 'password',
+							'name' => 'password',
 							'save' => true,
 							'required' => null,
 							'validators' => [],
@@ -110,42 +106,19 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 			'component' => 'form',
 			'props' => [
 				'form_id' => 'fphase1_user',
+				'form_instance_id' => 'phase1_user',
+				'form_descriptor_id' => FormList::USER,
 				'form_name' => FormList::USER,
 				'mode' => AbstractForm::_MODE_CREATE,
-				'action' => '',
+				'action' => '/?context=form&event=submit',
 				'method' => 'post',
 				'autocomplete' => false,
 				'focusable' => true,
 				'post_javascript_file' => '',
 				'button_save_class' => FormButton::CLASS_POSITIVE,
 				'button_cancel_class' => FormButton::CLASS_NEGATIVE,
-				'field_refs' => [
-					'username' => [
-						'id' => 'fphase1_user_input_1',
-						'name' => 'fphase1_user_input_1',
-						'row_id' => 'row_fphase1_user_input_1',
-					],
-					'passwd1' => [
-						'id' => 'fphase1_user_input_2',
-						'name' => 'fphase1_user_input_2',
-						'row_id' => 'row_fphase1_user_input_2',
-					],
-					'passwd2' => [
-						'id' => 'fphase1_user_input_3',
-						'name' => 'fphase1_user_input_3',
-						'row_id' => 'row_fphase1_user_input_3',
-					],
-					'timezone' => [
-						'id' => 'fphase1_user_input_4',
-						'name' => 'fphase1_user_input_4',
-						'row_id' => 'row_fphase1_user_input_4',
-					],
-					'locale' => [
-						'id' => 'fphase1_user_input_5',
-						'name' => 'fphase1_user_input_5',
-						'row_id' => 'row_fphase1_user_input_5',
-					],
-				],
+				'field_refs' => $this->expectedFieldRefs('phase1_user', ['username', 'passwd1', 'passwd2', 'timezone', 'locale']),
+				'submit_context' => $this->expectedSubmitContext(FormList::USER, 'phase1_user'),
 			],
 			'hidden_fields' => [],
 			'rows' => [
@@ -173,27 +146,19 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 			'component' => 'form',
 			'props' => [
 				'form_id' => 'fphase1_widget_settings',
+				'form_instance_id' => 'phase1_widget_settings',
+				'form_descriptor_id' => FormList::WIDGETCONNECTIONSETTINGS,
 				'form_name' => FormList::WIDGETCONNECTIONSETTINGS,
 				'mode' => AbstractForm::_MODE_UPDATE,
-				'action' => '',
+				'action' => '/?context=form&event=submit',
 				'method' => 'post',
 				'autocomplete' => true,
 				'focusable' => true,
 				'post_javascript_file' => '',
 				'button_save_class' => FormButton::CLASS_POSITIVE,
 				'button_cancel_class' => FormButton::CLASS_NEGATIVE,
-				'field_refs' => [
-					'widget_width' => [
-						'id' => 'fphase1_widget_settings_input_1',
-						'name' => 'fphase1_widget_settings_input_1',
-						'row_id' => 'row_fphase1_widget_settings_input_1',
-					],
-					'is_last' => [
-						'id' => 'fphase1_widget_settings_input_2',
-						'name' => 'fphase1_widget_settings_input_2',
-						'row_id' => 'row_fphase1_widget_settings_input_2',
-					],
-				],
+				'field_refs' => $this->expectedFieldRefs('phase1_widget_settings', ['widget_width', 'is_last']),
+				'submit_context' => $this->expectedSubmitContext(FormList::WIDGETCONNECTIONSETTINGS, 'phase1_widget_settings', $fixture_id),
 			],
 			'hidden_fields' => [],
 			'rows' => [
@@ -212,37 +177,19 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 			'component' => 'form',
 			'props' => [
 				'form_id' => 'fphase1_adminmenu',
+				'form_instance_id' => 'phase1_adminmenu',
+				'form_descriptor_id' => FormList::ADMINMENUMENUELEMENT,
 				'form_name' => FormList::ADMINMENUMENUELEMENT,
 				'mode' => AbstractForm::_MODE_CREATE,
-				'action' => '',
+				'action' => '/?context=form&event=submit',
 				'method' => 'post',
 				'autocomplete' => true,
 				'focusable' => true,
 				'post_javascript_file' => '',
 				'button_save_class' => FormButton::CLASS_POSITIVE,
 				'button_cancel_class' => FormButton::CLASS_NEGATIVE,
-				'field_refs' => [
-					'node_name' => [
-						'id' => 'fphase1_adminmenu_input_1',
-						'name' => 'fphase1_adminmenu_input_1',
-						'row_id' => 'row_fphase1_adminmenu_input_1',
-					],
-					'type' => [
-						'id' => 'fphase1_adminmenu_input_2',
-						'name' => 'fphase1_adminmenu_input_2',
-						'row_id' => 'row_fphase1_adminmenu_input_2',
-					],
-					'url' => [
-						'id' => 'fphase1_adminmenu_input_3',
-						'name' => 'fphase1_adminmenu_input_3',
-						'row_id' => 'row_fphase1_adminmenu_input_3',
-					],
-					'page_id' => [
-						'id' => 'fphase1_adminmenu_input_4',
-						'name' => 'fphase1_adminmenu_input_4',
-						'row_id' => 'row_fphase1_adminmenu_input_4',
-					],
-				],
+				'field_refs' => $this->expectedFieldRefs('phase1_adminmenu', ['node_name', 'type', 'url', 'page_id']),
+				'submit_context' => $this->expectedSubmitContext(FormList::ADMINMENUMENUELEMENT, 'phase1_adminmenu'),
 			],
 			'hidden_fields' => [],
 			'rows' => [
@@ -271,37 +218,19 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 			'component' => 'form',
 			'props' => [
 				'form_id' => 'fphase1_adminmenu_update',
+				'form_instance_id' => 'phase1_adminmenu_update',
+				'form_descriptor_id' => FormList::ADMINMENUMENUELEMENT,
 				'form_name' => FormList::ADMINMENUMENUELEMENT,
 				'mode' => AbstractForm::_MODE_UPDATE,
-				'action' => '',
+				'action' => '/?context=form&event=submit',
 				'method' => 'post',
 				'autocomplete' => true,
 				'focusable' => true,
 				'post_javascript_file' => '',
 				'button_save_class' => FormButton::CLASS_POSITIVE,
 				'button_cancel_class' => FormButton::CLASS_NEGATIVE,
-				'field_refs' => [
-					'node_name' => [
-						'id' => 'fphase1_adminmenu_update_input_1',
-						'name' => 'fphase1_adminmenu_update_input_1',
-						'row_id' => 'row_fphase1_adminmenu_update_input_1',
-					],
-					'type' => [
-						'id' => 'fphase1_adminmenu_update_input_2',
-						'name' => 'fphase1_adminmenu_update_input_2',
-						'row_id' => 'row_fphase1_adminmenu_update_input_2',
-					],
-					'url' => [
-						'id' => 'fphase1_adminmenu_update_input_3',
-						'name' => 'fphase1_adminmenu_update_input_3',
-						'row_id' => 'row_fphase1_adminmenu_update_input_3',
-					],
-					'page_id' => [
-						'id' => 'fphase1_adminmenu_update_input_4',
-						'name' => 'fphase1_adminmenu_update_input_4',
-						'row_id' => 'row_fphase1_adminmenu_update_input_4',
-					],
-				],
+				'field_refs' => $this->expectedFieldRefs('phase1_adminmenu_update', ['node_name', 'type', 'url', 'page_id']),
+				'submit_context' => $this->expectedSubmitContext(FormList::ADMINMENUMENUELEMENT, 'phase1_adminmenu_update', $fixture_id),
 			],
 			'hidden_fields' => [],
 			'rows' => [
@@ -330,18 +259,27 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 		$this->assertSame('admin_developer', $update->getInput('username')?->getValue());
 	}
 
-	public function testCurrentPostPayloadIsKeyedByGeneratedInputIdsAndIeSaveMarkerIsAccepted(): void
+	public function testProcessPayloadIsKeyedByStableFieldKeysAndIeSaveMarkerIsRejected(): void
 	{
 		$form = $this->createForm(FormList::USERLOGIN, 'phase1_ie_login', [], [
 			'submit_button' => 'legacy image button <!--save--> marker',
-			'fphase1_ie_login_input_1' => 'admin_developer',
-			'fphase1_ie_login_input_2' => 'not-the-password',
+			'username' => 'admin_developer',
+			'password' => 'not-the-password',
 		]);
 
+		$this->assertNull($form->getInput('username')?->getValue());
+		$this->assertNull($form->getInput('password')?->getValue());
+
+		$result = $form->process([
+			'submit_button' => 'legacy image button <!--save--> marker',
+			'username' => 'admin_developer',
+			'password' => 'not-the-password',
+		]);
+
+		$this->assertTrue($result->isInvalid());
+		$this->assertArrayHasKey('submit_button', $result->errors());
 		$this->assertSame('admin_developer', $form->getInput('username')?->getValue());
 		$this->assertSame('not-the-password', $form->getInput('password')?->getValue());
-		$this->assertFalse($form->isValid());
-		$this->assertNotEmpty($form->getInput('username')?->getErrors());
 		$this->assertSame([], $form->savedata);
 	}
 
@@ -351,6 +289,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 		$tree = $form->buildTree();
 
 		$this->assertArrayNotHasKey('csrf_token', $tree['props']['field_refs']);
+		$this->assertArrayNotHasKey('csrf_token', $tree['props']['submit_context']);
 		$this->assertSame([], $tree['slots']['hidden_fields']);
 	}
 
@@ -546,6 +485,8 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 			'component' => $tree['component'],
 			'props' => [
 				'form_id' => $tree['props']['form_id'],
+				'form_instance_id' => $tree['props']['form_instance_id'],
+				'form_descriptor_id' => $tree['props']['form_descriptor_id'],
 				'form_name' => $tree['props']['form_name'],
 				'mode' => $tree['props']['mode'],
 				'action' => $tree['props']['action'],
@@ -556,6 +497,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 				'button_save_class' => $tree['props']['button_save']['class'] ?? null,
 				'button_cancel_class' => $tree['props']['button_cancel']['class'] ?? null,
 				'field_refs' => $tree['props']['field_refs'],
+				'submit_context' => $this->normalizeSubmitContext($tree['props']['submit_context']),
 			],
 			'hidden_fields' => array_map(
 				static fn (array $input): string => (string)$input['component'],
@@ -588,6 +530,8 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 			'component' => $input['component'],
 			'fieldname' => $props['fieldname'],
 			'input_type' => $props['input_type'],
+			'field_key' => $props['field_key'],
+			'data_field_key' => $props['data_field_key'],
 			'name' => $props['name'],
 			'save' => $props['save'],
 			'required' => $props['required'] ?? null,
@@ -618,13 +562,66 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 					'component' => $component,
 					'fieldname' => $fieldname,
 					'input_type' => $inputType,
-					'name' => $inputId,
+					'field_key' => $fieldname,
+					'data_field_key' => $fieldname,
+					'name' => $fieldname,
 					'save' => $save,
 					'required' => $required,
 					'validators' => $validators,
 				],
 			],
 		];
+	}
+
+	/**
+	 * @param list<string> $fieldnames
+	 * @return array<string, array<string, string>>
+	 */
+	private function expectedFieldRefs(string $formInstanceId, array $fieldnames): array
+	{
+		$refs = [];
+		$input_number = 0;
+
+		foreach ($fieldnames as $fieldname) {
+			$input_id = 'f' . $formInstanceId . '_input_' . ++$input_number;
+			$refs[$fieldname] = [
+				'id' => $input_id,
+				'key' => $fieldname,
+				'name' => $fieldname,
+				'row_id' => 'row_' . $input_id,
+			];
+		}
+
+		return $refs;
+	}
+
+	/**
+	 * @return array<string, mixed>
+	 */
+	private function expectedSubmitContext(string $formType, string $formInstanceId, ?int $itemId = null): array
+	{
+		return [
+			'form_id' => $formType,
+			'form_instance_id' => $formInstanceId,
+			'item_id' => $itemId ?? '',
+			'return_target' => '/phase-1-referer',
+			'host_page_id' => 1,
+			'widget_connection_id' => '',
+			'form_build_id' => '<build-id>',
+			'form_context_params' => '',
+		];
+	}
+
+	/**
+	 * @param array<string, mixed> $submitContext
+	 * @return array<string, mixed>
+	 */
+	private function normalizeSubmitContext(array $submitContext): array
+	{
+		$submitContext['form_build_id'] = trim((string)($submitContext['form_build_id'] ?? '')) === '' ? '' : '<build-id>';
+		$submitContext['form_context_params'] = trim((string)($submitContext['form_context_params'] ?? '')) === '' ? '' : '<encoded-context>';
+
+		return $submitContext;
 	}
 
 	/**

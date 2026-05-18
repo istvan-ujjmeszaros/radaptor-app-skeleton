@@ -206,6 +206,56 @@ return [
 				'ajax_helper_raw' => 'ajax_url_raw(\'form.status\')',
 			],
 		],
+		'form:submit' => [
+			'event_name' => 'form.submit',
+			'group' => 'Runtime',
+			'name' => 'Submit form',
+			'summary' => 'Dedicated form submission chokepoint that resolves, binds, validates, and processes a form before response emission.',
+			'request' => [
+				'method' => 'POST',
+				'params' => [
+					0 => [
+						'name' => 'form_id',
+						'source' => 'post',
+						'type' => 'string',
+						'required' => true,
+						'description' => 'Class-backed form descriptor id.',
+					],
+					1 => [
+						'name' => 'form_instance_id',
+						'source' => 'post',
+						'type' => 'string',
+						'required' => true,
+						'description' => 'Stable placement id for this rendered form instance.',
+					],
+				],
+			],
+			'response' => [
+				'kind' => 'redirect|html-fragment|api-json',
+				'content_type' => 'text/html or application/json',
+			],
+			'authorization' => [
+				'visibility' => 'public route with form ACL and host-context checks',
+			],
+			'class' => 'EventFormSubmit',
+			'slug' => 'form:submit',
+			'route' => [
+				'event_name' => 'form.submit',
+				'context' => 'form',
+				'event' => 'submit',
+				'query' => '?context=form&event=submit',
+			],
+			'invocation' => [
+				'url_php' => 'Url::getUrl(\'form.submit\')',
+				'template_helper' => 'event_url(\'form.submit\')',
+				'ajax_helper' => 'ajax_url(\'form.submit\')',
+				'ajax_helper_raw' => 'ajax_url_raw(\'form.submit\')',
+			],
+			'notes' => [
+			],
+			'side_effects' => [
+			],
+		],
 		'fragment:render' => [
 			'event_name' => 'fragment.render',
 			'group' => 'Runtime',
