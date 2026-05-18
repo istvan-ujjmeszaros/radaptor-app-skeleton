@@ -71,6 +71,14 @@ jobs:
       - name: Install Radaptor packages
         run: ./radaptor.sh install --json
 
+      - name: Build Radaptor registries
+        run: ./radaptor.sh build:all --json
+
+      - name: Prepare web-writable runtime paths
+        run: |
+          mkdir -p .logs tmp
+          chmod -R a+rwX .logs tmp
+
       - name: Wait for app
         shell: bash
         run: |
