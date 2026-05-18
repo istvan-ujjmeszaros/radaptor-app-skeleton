@@ -506,6 +506,15 @@ class FixtureWidgetConnections extends AbstractFixture
 				'widget_name' => 'BlogList',
 				'seq' => 64,
 			],
+			// High ID reserved for Form Refactor Phase 1 WidgetConnectionSettings update tests.
+			[
+				'connection_id' => 9083,
+				// Page 141 is the existing WidgetConnectionSettings form page fixture.
+				'page_id' => 141,
+				'slot_name' => 'content',
+				'widget_name' => 'Form',
+				'seq' => 9063,
+			],
 		];
 	}
 }

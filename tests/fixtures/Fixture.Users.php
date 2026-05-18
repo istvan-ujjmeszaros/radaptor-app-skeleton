@@ -47,6 +47,10 @@ class FixtureUsers extends AbstractFixture
 			['username' => 'admin_inactive', 'password' => self::PASSWORD_HASH, 'is_active' => 0, 'locale' => 'en-US'],
 			['username' => 'developer_user_new_theme', 'password' => self::PASSWORD_HASH, 'is_active' => 1, 'locale' => 'en-US'],
 			['username' => 'developer_user_old_theme', 'password' => self::PASSWORD_HASH, 'is_active' => 1, 'locale' => 'en-US'],
+			['username' => 'form_phase1_users_admin', 'password' => self::PASSWORD_HASH, 'is_active' => 1, 'locale' => 'en-US'],
+			['username' => 'form_phase1_content_admin', 'password' => self::PASSWORD_HASH, 'is_active' => 1, 'locale' => 'en-US'],
+			['username' => 'form_phase1_system_developer', 'password' => self::PASSWORD_HASH, 'is_active' => 1, 'locale' => 'en-US'],
+			['username' => 'form_phase1_denied', 'password' => self::PASSWORD_HASH, 'is_active' => 1, 'locale' => 'en-US'],
 		];
 	}
 }
