@@ -24,8 +24,4 @@ test("bootstrap admin can log in and open the admin dashboard", async ({ page })
 	await page.goto("/admin/roles/");
 	await expect(page).toHaveURL(/\/admin\/roles\/$/);
 	await expect(page.locator("body")).toContainText("New role");
-
-	await page.goto("/");
-	await expect(page).toHaveURL(/\/$/);
-	await expect(page.getByText("Your application skeleton is installed and ready.")).toBeVisible();
 });

@@ -32,7 +32,7 @@ test("user login form accepts valid credentials and rejects invalid credentials"
 	await form.locator('button[name="submit_button"][value="save"]').click();
 	await page.waitForLoadState("domcontentloaded");
 
-	await expect(page).toHaveURL(/\/$/);
+	await expectPath(page, "/");
 });
 
 test("user form create, update, cancel, invalid, and ACL-denied paths are stable", async ({ page }) => {
