@@ -214,8 +214,20 @@ return [
 			'request' => [
 				'method' => 'POST',
 				'params' => [
-					'form_id' => 'Class-backed form descriptor id.',
-					'form_instance_id' => 'Stable placement id for this rendered form instance.',
+					0 => [
+						'name' => 'form_id',
+						'source' => 'post',
+						'type' => 'string',
+						'required' => true,
+						'description' => 'Class-backed form descriptor id.',
+					],
+					1 => [
+						'name' => 'form_instance_id',
+						'source' => 'post',
+						'type' => 'string',
+						'required' => true,
+						'description' => 'Stable placement id for this rendered form instance.',
+					],
 				],
 			],
 			'response' => [
