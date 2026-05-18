@@ -122,12 +122,16 @@ Example:
 
 ## Verification
 
+- New automated tests may add or extend permanent fixtures under `tests/fixtures/Fixture.*.php`
+  when stable seed data is clearer than ad hoc setup. Declare fixture dependencies explicitly and
+  use high, documented IDs for browser/e2e-only rows.
 - `bin/check-repo-baseline.sh`
 - `../bin/cleanup-workspace-ephemera.sh --phase registry-first`
 - `docker compose -f docker-compose-dev.yml up -d --build`
 - `docker compose -f docker-compose-dev.yml exec -T -e XDEBUG_MODE=off php phpunit`
 - `docker compose -f docker-compose-dev.yml exec -T -e XDEBUG_MODE=off php phpstan analyze`
 - `docker compose -f docker-compose-dev.yml exec -T php bash -lc 'cd /app && ./php-cs-fixer.sh --config=.php-cs-fixer.php'`
+- `npm install && npx playwright install chromium && E2E_BASE_URL=http://localhost npm run e2e`
 - `./bin/docker-compose-packages-dev.sh radaptor-app-skeleton exec -T php bash -lc 'cd /workspace/packages-dev/core/framework && /app/php-cs-fixer.sh --config=.php-cs-fixer.php'`
 - `./bin/docker-compose-packages-dev.sh radaptor-app-skeleton exec -T php bash -lc 'cd /workspace/packages-dev/core/cms && /app/php-cs-fixer.sh --config=.php-cs-fixer.php'`
 - `./bin/docker-compose-packages-dev.sh radaptor-app-skeleton exec -T -e XDEBUG_MODE=off php vendor/bin/phpstan analyse -a /workspace/packages-dev/core/framework/classes/phpstan/class.NonHtmlResponseHeaderDetectionRule.php -c /workspace/packages-dev/core/framework/phpstan.neon`

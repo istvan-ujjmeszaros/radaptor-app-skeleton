@@ -996,6 +996,21 @@ class FixtureAttributes extends AbstractFixture
 				'param_name' => 'is_last',
 				'param_value' => null,
 			],
+			// High IDs reserved for Form Refactor Phase 1 WidgetConnectionSettings update tests.
+			[
+				'id' => 900181,
+				'resource_name' => '_widget_settings',
+				'resource_id' => 9083,
+				'param_name' => 'widget_width',
+				'param_value' => 'three_fourth',
+			],
+			[
+				'id' => 900182,
+				'resource_name' => '_widget_settings',
+				'resource_id' => 9083,
+				'param_name' => 'is_last',
+				'param_value' => null,
+			],
 			[
 				'id' => 185,
 				'resource_name' => 'resource_data',

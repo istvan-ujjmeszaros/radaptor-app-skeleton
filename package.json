@@ -1,0 +1,11 @@
+{
+  "name": "radaptor-app-skeleton",
+  "private": true,
+  "scripts": {
+    "e2e": "playwright test",
+    "e2e:install-browsers": "playwright install --with-deps chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.60.0"
+  }
+}

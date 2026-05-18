@@ -45,6 +45,10 @@ class FixtureUsersRolesMapping extends AbstractFixture
 			['user_id' => '@users.developer_user_new_theme', 'role_id' => '@roles_tree.system_developer'],
 			['user_id' => '@users.developer_user_old_theme', 'role_id' => '@roles_tree.system_administrator'],
 			['user_id' => '@users.developer_user_old_theme', 'role_id' => '@roles_tree.system_developer'],
+			// Form refactor Phase 1 characterization users with narrow, explicit roles.
+			['user_id' => '@users.form_phase1_users_admin', 'role_id' => '@roles_tree.users_admin'],
+			['user_id' => '@users.form_phase1_content_admin', 'role_id' => '@roles_tree.content_admin'],
+			['user_id' => '@users.form_phase1_system_developer', 'role_id' => '@roles_tree.system_developer'],
 		];
 	}
 }
