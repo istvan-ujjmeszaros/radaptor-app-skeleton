@@ -63,7 +63,20 @@ jobs:
         run: ./docker/build-php-platform.sh dev
 
       - name: Start app stack
-        run: docker compose -f docker-compose-dev.yml up -d --build
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            if docker compose -f docker-compose-dev.yml up -d --build; then
+              exit 0
+            fi
+
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+
+            docker compose -f docker-compose-dev.yml down -v --remove-orphans || true
+            sleep $((attempt * 15))
+          done
 
       - name: Install Composer dependencies
         run: ./composer.sh install --no-interaction --no-progress
