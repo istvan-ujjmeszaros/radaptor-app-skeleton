@@ -48,6 +48,7 @@ final class LocalPackageRegistryBuilderTest extends TestCase
 					'public' => [],
 				],
 				'dist_exclude' => [],
+				'tag_contexts' => [],
 			],
 			[
 				'.registry-package.json',
@@ -88,6 +89,7 @@ final class LocalPackageRegistryBuilderTest extends TestCase
 				'public' => [],
 			],
 			'dist_exclude' => [],
+			'tag_contexts' => [],
 		];
 		$tracked_files = [
 			'.registry-package.json',
@@ -138,6 +140,7 @@ final class LocalPackageRegistryBuilderTest extends TestCase
 				'public' => [],
 			],
 			'dist_exclude' => [],
+			'tag_contexts' => [],
 		];
 		$tracked_files = [
 			'.registry-package.json',
@@ -205,6 +208,7 @@ final class LocalPackageRegistryBuilderTest extends TestCase
 					'public' => [],
 				],
 				'dist_exclude' => [],
+				'tag_contexts' => [],
 			],
 			$tracked_files
 		);
@@ -232,6 +236,7 @@ final class LocalPackageRegistryBuilderTest extends TestCase
 					'public' => [],
 				],
 				'dist_exclude' => [],
+				'tag_contexts' => [],
 			],
 			$tracked_files
 		);
