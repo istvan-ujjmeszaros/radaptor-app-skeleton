@@ -57,7 +57,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 				'field_refs' => $this->expectedFieldRefs('phase1_login', ['username', 'password']),
 				'submit_context' => $this->expectedSubmitContext(FormList::USERLOGIN, 'phase1_login'),
 			],
-			'hidden_fields' => [],
+			'hidden_fields' => ['form.input.hidden'],
 			'rows' => [
 				[
 					'component' => 'form.row',
@@ -120,7 +120,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 				'field_refs' => $this->expectedFieldRefs('phase1_user', ['username', 'passwd1', 'passwd2', 'timezone', 'locale']),
 				'submit_context' => $this->expectedSubmitContext(FormList::USER, 'phase1_user'),
 			],
-			'hidden_fields' => [],
+			'hidden_fields' => ['form.input.hidden'],
 			'rows' => [
 				$this->expectedInputRow('fphase1_user_input_1', 'form.input.text', 'username', 'text', true, null, ['NotEmpty', 'Stringlength']),
 				$this->expectedInputRow('fphase1_user_input_2', 'form.input.password', 'passwd1', 'password', false, null, ['Stringlength']),
@@ -160,7 +160,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 				'field_refs' => $this->expectedFieldRefs('phase1_widget_settings', ['widget_width', 'is_last']),
 				'submit_context' => $this->expectedSubmitContext(FormList::WIDGETCONNECTIONSETTINGS, 'phase1_widget_settings', $fixture_id),
 			],
-			'hidden_fields' => [],
+			'hidden_fields' => ['form.input.hidden'],
 			'rows' => [
 				$this->expectedInputRow('fphase1_widget_settings_input_1', 'form.input.select', 'widget_width', 'select', true, true, []),
 				$this->expectedInputRow('fphase1_widget_settings_input_2', 'form.input.checkbox', 'is_last', 'checkbox', true, null, []),
@@ -191,7 +191,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 				'field_refs' => $this->expectedFieldRefs('phase1_adminmenu', ['node_name', 'type', 'url', 'page_id']),
 				'submit_context' => $this->expectedSubmitContext(FormList::ADMINMENUMENUELEMENT, 'phase1_adminmenu'),
 			],
-			'hidden_fields' => [],
+			'hidden_fields' => ['form.input.hidden'],
 			'rows' => [
 				$this->expectedInputRow('fphase1_adminmenu_input_1', 'form.input.text', 'node_name', 'text', true, null, ['NotEmpty', 'Stringlength']),
 				$this->expectedInputRow('fphase1_adminmenu_input_2', 'form.input.radiogroup', 'type', 'radiogroup', true, null, ['Selected']),
@@ -232,7 +232,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 				'field_refs' => $this->expectedFieldRefs('phase1_adminmenu_update', ['node_name', 'type', 'url', 'page_id']),
 				'submit_context' => $this->expectedSubmitContext(FormList::ADMINMENUMENUELEMENT, 'phase1_adminmenu_update', $fixture_id),
 			],
-			'hidden_fields' => [],
+			'hidden_fields' => ['form.input.hidden'],
 			'rows' => [
 				$this->expectedInputRow('fphase1_adminmenu_update_input_1', 'form.input.text', 'node_name', 'text', true, null, ['NotEmpty', 'Stringlength']),
 				$this->expectedInputRow('fphase1_adminmenu_update_input_2', 'form.input.radiogroup', 'type', 'radiogroup', true, null, ['Selected']),
@@ -283,14 +283,40 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 		$this->assertSame([], $form->savedata);
 	}
 
-	public function testCurrentFormTreeDoesNotExposeCsrfToken(): void
+	public function testCurrentFormTreeExposesSessionCsrfTokenAsHiddenField(): void
 	{
-		$form = $this->createForm(FormList::USERLOGIN, 'phase1_no_csrf');
+		$form = $this->createForm(FormList::USERLOGIN, 'phase3_csrf');
 		$tree = $form->buildTree();
 
 		$this->assertArrayNotHasKey('csrf_token', $tree['props']['field_refs']);
 		$this->assertArrayNotHasKey('csrf_token', $tree['props']['submit_context']);
-		$this->assertSame([], $tree['slots']['hidden_fields']);
+		$this->assertCount(1, $tree['slots']['hidden_fields']);
+		$csrf = $tree['slots']['hidden_fields'][0]['props'];
+		$this->assertSame('csrf_token', $csrf['name']);
+		$this->assertSame('csrf_token', $csrf['data_field_key']);
+		$this->assertNotSame('', $csrf['value']);
+		$this->assertFalse($csrf['save']);
+	}
+
+	public function testFormTreeDisablesPersistentCacheWriteWhenIssuingCsrfToken(): void
+	{
+		$previous = getenv('APP_PERSISTENT_CACHE_ENABLED');
+		putenv('APP_PERSISTENT_CACHE_ENABLED=true');
+
+		try {
+			$form = $this->createForm(FormList::USERLOGIN, 'phase3_csrf_cache_guard');
+			$this->assertTrue(RequestContextHolder::isPersistentCacheWriteEnabled());
+
+			$form->buildTree();
+
+			$this->assertFalse(RequestContextHolder::isPersistentCacheWriteEnabled());
+		} finally {
+			if ($previous === false) {
+				putenv('APP_PERSISTENT_CACHE_ENABLED');
+			} else {
+				putenv('APP_PERSISTENT_CACHE_ENABLED=' . $previous);
+			}
+		}
 	}
 
 	public function testUserLoginValidationAndSavedataAreCharacterized(): void

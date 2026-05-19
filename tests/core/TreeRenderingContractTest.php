@@ -255,12 +255,15 @@ final class TreeRenderingContractTest extends TestCase
 		$this->assertSame('Example Form', $tree['props']['title'] ?? null);
 		$this->assertSame('fexample_input_1', $tree['props']['field_refs']['username']['id'] ?? null);
 		$this->assertSame('row_fexample_input_1', $tree['props']['field_refs']['username']['row_id'] ?? null);
-		$this->assertCount(1, $tree['slots']['hidden_fields'] ?? []);
+		$this->assertCount(2, $tree['slots']['hidden_fields'] ?? []);
 		$this->assertCount(1, $tree['slots']['rows'] ?? []);
 		$this->assertSame('form.input.text', $tree['slots']['rows'][0]['slots']['content'][0]['component'] ?? null);
 		$this->assertSame('Username', $tree['slots']['rows'][0]['slots']['content'][0]['props']['label'] ?? null);
 		$this->assertSame('NotEmpty', $tree['slots']['rows'][0]['slots']['content'][0]['props']['validators'][0]['validator'] ?? null);
 		$this->assertSame('form.input.hidden', $tree['slots']['hidden_fields'][0]['component'] ?? null);
+		$this->assertSame('tracking_token', $tree['slots']['hidden_fields'][0]['props']['name'] ?? null);
+		$this->assertSame('csrf_token', $tree['slots']['hidden_fields'][1]['props']['name'] ?? null);
+		$this->assertNotSame('', $tree['slots']['hidden_fields'][1]['props']['value'] ?? '');
 	}
 
 	public function testHtmlComponentTemplateResolverUsesSduiFormTemplatesWithoutLegacyFallback(): void
@@ -734,7 +737,7 @@ final class TreeRenderingExampleForm extends AbstractForm
 		$validator = $username->addValidator(new FormValidatorNotEmpty('Required'));
 		assert($validator instanceof FormValidatorNotEmpty);
 
-		$token = new FormInputHidden('csrf_token', $this);
+		$token = new FormInputHidden('tracking_token', $this);
 		$token->setValue('abc123');
 	}
 }

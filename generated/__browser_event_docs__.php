@@ -228,6 +228,13 @@ return [
 						'required' => true,
 						'description' => 'Stable placement id for this rendered form instance.',
 					],
+					2 => [
+						'name' => 'csrf_token',
+						'source' => 'post',
+						'type' => 'string',
+						'required' => true,
+						'description' => 'Session-bound form CSRF token.',
+					],
 				],
 			],
 			'response' => [
