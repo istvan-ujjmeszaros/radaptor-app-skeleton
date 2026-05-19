@@ -302,6 +302,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 	{
 		$previous = getenv('APP_PERSISTENT_CACHE_ENABLED');
 		putenv('APP_PERSISTENT_CACHE_ENABLED=true');
+		RequestContextHolder::initializeRequest(get: $_GET, post: $_POST, server: $_SERVER);
 
 		try {
 			$form = $this->createForm(FormList::USERLOGIN, 'phase3_csrf_cache_guard');
@@ -316,6 +317,7 @@ final class FormRefactorPhase1CharacterizationTest extends TransactionedTestCase
 			} else {
 				putenv('APP_PERSISTENT_CACHE_ENABLED=' . $previous);
 			}
+			RequestContextHolder::initializeRequest(get: $_GET, post: $_POST, server: $_SERVER);
 		}
 	}
 
