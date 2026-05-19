@@ -88,11 +88,12 @@ final class FormInputDateTimeConversionTest extends TransactionedTestCase
 		$inputId = $input->id;
 		$this->assertNotNull($inputId);
 
-		RequestContextHolder::initializeRequest(post: [
+		$post = [
 			$inputId => '2026-03-05 09:00',
 			'client_timezone' => 'Europe/Budapest',
-		]);
-		$input->setValue('2026-03-05 09:00');
+		];
+		RequestContextHolder::initializeRequest(post: $post);
+		$form->bind($post);
 
 		$this->assertSame('2026-03-05 09:00:00', $input->getValue());
 	}
@@ -164,11 +165,12 @@ final class FormInputDateTimeConversionTest extends TransactionedTestCase
 		$inputId = $input->id;
 		$this->assertNotNull($inputId);
 
-		RequestContextHolder::initializeRequest(post: [
+		$post = [
 			$inputId => '2026-03-05 10:00',
 			'client_timezone' => 'Europe/Budapest',
-		]);
-		$input->setValue('2026-03-05 10:00');
+		];
+		RequestContextHolder::initializeRequest(post: $post);
+		$form->bind($post);
 
 		$this->assertSame('2026-03-05 09:00:00', $input->getValue());
 	}

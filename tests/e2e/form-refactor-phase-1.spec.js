@@ -35,6 +35,30 @@ test("user login form accepts valid credentials and rejects invalid credentials"
 	await expectPath(page, "/");
 });
 
+test("form submit rejects missing and stale csrf tokens without processing", async ({ page }) => {
+	await page.goto(fixture.urls.login);
+
+	let form = await visibleForm(page);
+	await expect(form.locator('input[name="csrf_token"]')).toHaveValue(/.+/);
+	await form.locator('input[name="csrf_token"]').evaluate((input) => input.remove());
+	await form.getByLabel(/^Username$/).fill(fixture.credentials.admin_username);
+	await form.getByLabel(/^Password$/).fill(fixture.credentials.admin_password);
+	await form.locator('button[name="submit_button"][value="save"]').click();
+
+	await expect(page.locator("body")).toContainText("Refresh this page");
+
+	const before = runSupport("user-by-id", String(fixture.ids.edit_user_id));
+	form = await openAsAdmin(page, fixture.urls.user_update);
+	await form.locator('input[name="csrf_token"]').evaluate((input) => {
+		input.value = "stale-token";
+	});
+	await form.getByLabel(/^Timezone$/).fill("Asia/Tokyo");
+	await form.locator('button[name="submit_button"][value="save"]').click();
+
+	await expect(page.locator("body")).toContainText("Refresh this page");
+	expect(runSupport("user-by-id", String(fixture.ids.edit_user_id)).timezone).toBe(before.timezone);
+});
+
 test("user form create, update, cancel, invalid, and ACL-denied paths are stable", async ({ page }) => {
 	const createdUsername = `fp1_user_${Date.now().toString(36)}`;
 

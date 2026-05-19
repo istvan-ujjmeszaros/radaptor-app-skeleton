@@ -535,6 +535,9 @@ final class LocaleContentRoutingTest extends TransactionedTestCase
 		$original_post = $_POST;
 
 		try {
+			$user = User::getUserByName('locale_content_admin');
+			$this->assertIsArray($user);
+
 			$_GET = ['item_id' => (string) $english_id, 'referer' => '/admin/'];
 			$_POST = [];
 			RequestContextHolder::initializeRequest(get: $_GET, post: $_POST);
@@ -556,11 +559,15 @@ final class LocaleContentRoutingTest extends TransactionedTestCase
 				(string) $content_input->id => '<p>English form content</p>',
 			];
 			RequestContextHolder::initializeRequest(get: $_GET, post: $_POST);
+			User::bootstrapTrustedCurrentUser($user);
 			$submitted_form = new FormTypeRichText('rich_text', 'locale_only_duplicate_test', $this->treeContext(), '/admin/');
+			$result = $submitted_form->process($_POST);
 
+			$this->assertTrue($result->isInvalid());
 			$this->assertContains(t('cms.richtext.field.name.unique_error'), $submitted_form->getInput('name')?->getErrors() ?? []);
 			$this->assertSame('en-US', EntityRichtext::findById((int) $english_id)?->dto()['locale'] ?? null);
 		} finally {
+			User::logout();
 			$_GET = $original_get;
 			$_POST = $original_post;
 			RequestContextHolder::initializeRequest(get: $_GET, post: $_POST);
